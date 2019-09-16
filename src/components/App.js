@@ -26,19 +26,21 @@ const App = props => {
         <div>
             <header>
                 <div className="logo"></div>
-                <div>
+                <div className="actions">
+                    <select name ="language" onClick={handleClick}>
+                    {props.langs && props.langs.map(lang => <option key={lang} value={lang}>{lang}</option>)}
+                    </select>
                     <input type="text" onChange={handleChange} value={selectedWord} />
                     <button onClick={handleClick}>Submit</button>
+                    <p>Ingrese una palabra y seleccione un idioma para ver palabras similares.</p>
                 </div>
-                <select name ="language" onClick={handleClick}>
-                {props.langs && props.langs.map(lang => <option key={lang} value={lang}>{lang}</option>)}
-                </select>
             </header>
             { props.word.semanticallySimilarWords &&
             <section>
                     <table>
                         <thead>
                         <tr>
+                            <th>Your word</th>
                             <th>{selectedWord}</th>
                         </tr>
                         </thead>
@@ -46,7 +48,7 @@ const App = props => {
             { props.word.semanticallySimilarWords.map(elem => {
                 return (
                     <tr key={elem.word}>
-                        <td  >{elem.word}</td>
+                        <td cellspacing="2">{elem.word}</td>
                     </tr>
                 )
             })}

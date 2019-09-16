@@ -1,0 +1,20 @@
+header{
+    width: 100%;
+}
+header .actions {
+    width: 60%;
+    max-width: 500px;
+    margin-left: 20%;
+}
+header select{
+    margin-right: 30px;
+    width: 150px;
+}
+header button {
+    margin-left: 30px;
+}
+section{
+    width: 70%;
+    max-width: 800px;
+    margin: auto
+}

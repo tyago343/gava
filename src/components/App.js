@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { fetchlanguagesUtil, getWordUtil } from '../redux/actions';
+import { fetchlanguagesUtil, getWordUtil, getDetailsUtil } from '../redux/actions';
 
 const App = props => {
     const [ selectedLang, setSelectedLang ] = useState('')
@@ -22,6 +22,11 @@ const App = props => {
         let word = evt.target.value;
         setSelectedWord(word)
     }
+    const handleClickOnWord = evt => {
+        evt.preventDefault();
+        let word = evt.target.id;
+        props.getWordDetails(selectedLang, word);
+    }
     return(
         <div>
             <header>
@@ -35,26 +40,29 @@ const App = props => {
                     <p>Ingrese una palabra y seleccione un idioma para ver palabras similares.</p>
                 </div>
             </header>
-            { props.word.semanticallySimilarWords &&
-            <section>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Your word</th>
-                            <th>{selectedWord}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-            { props.word.semanticallySimilarWords.map(elem => {
-                return (
-                    <tr key={elem.word}>
-                        <td cellspacing="2">{elem.word}</td>
-                    </tr>
-                )
-            })}
-            </tbody>
-                 </table>
-                </section>
+            { props.word.semanticallySimilarWords && 
+            <div className="information">
+                <p>Your word: <span>{selectedWord}</span>.</p>
+                <p>Palabras sintacticamente similares (click para ver sus detalles): </p>
+                <ul> {props.word.semanticallySimilarWords.map(elem => {
+                    return (
+                        <li key={elem.word} onClick={handleClickOnWord} id={elem.word} >{elem.word}</li>
+                    )
+                })}
+                </ul>
+            </div>
+            }
+            { props.word.details && 
+                <div className="details">
+                    <ul>
+                        <li>Word: <span>{props.word.details.wordInformation.word}</span></li>
+                        <li>Frequency: <span>{props.word.details.wordInformation.frequency}</span></li>
+                        <li>Document frequency: <span>{props.word.details.wordInformation.documentFrequency}</span></li>
+                        <li>Absolute Rank: <span>{props.word.details.wordInformation.absoluteRank}</span></li>
+                        <li>Relative Rank: <span>{props.word.details.wordInformation.relativeRank}</span></li>
+
+                    </ul>
+                </div>
             }
         </div>
     )
@@ -66,6 +74,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
     getLanguages: () => dispatch(fetchlanguagesUtil()),
-    fetchWord: (lang, word) => dispatch(getWordUtil(lang,word))
+    fetchWord: (lang, word) => dispatch(getWordUtil(lang,word)),
+    getWordDetails: (lang, word) => dispatch(getDetailsUtil(lang, word))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -5,16 +5,53 @@ header .actions {
     width: 60%;
     max-width: 500px;
     margin-left: 20%;
+    display: inline-block;
 }
 header select{
-    margin-right: 30px;
     width: 150px;
+    padding: 10px;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    height: 45px;
+}
+header input{
+    height: 39px;
+    font-size: 16px
 }
 header button {
-    margin-left: 30px;
+    height: 45px;
+    border-radius: 3px;
+    background-color: #50c058;
+    border: 0;
+    width: 65px;
+
 }
 section{
     width: 70%;
     max-width: 800px;
     margin: auto
+}
+header .logo{
+    background-image: url('./gavagai.png');
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 98px;
+    display: inline-block;
+}
+.information p:first-child span{
+    font-weight: 700;
+}
+.information li{
+    margin: 5px;
+    cursor: pointer;
+}
+.information ul{
+    float: left;
+    margin-right: 150px
+}
+.details{
+    margin: 80px;
+}
+.details li span{
+    font-weight: 700;
 }
